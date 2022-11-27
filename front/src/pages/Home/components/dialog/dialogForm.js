@@ -10,10 +10,10 @@ import produce from "immer";
 
 export default function FormDialog(props) {
   const [editValues, setEditValues] = useState({
-    id: props.id,
     name: props.title,
     cost: props.cost,
-    category: props.category,
+    color: props.color,
+    size: props.size,
   });
 
   const handleChangeValues = (values) => {
@@ -27,36 +27,50 @@ export default function FormDialog(props) {
     props.setOpen(false);
   };
 
-  const handleEditGame = () => {
-    Axios.put("http://localhost:3001/edit", {
-      id: editValues.id,
+  const addTenis = () => {
+    Axios.post("http://localhost:3001/createTenis", {
+        user_id: props.user_id,
+        name: editValues.name,
+        tamanho: editValues.size,
+        cor: editValues.color,
+        preco: editValues.cost,
+    }).then((response) => {
+        if(response.data.auth){
+          handleClose();
+          window.location.reload();
+        }else{
+          alert("Falha no cadastro");
+        }
+    });
+};
+
+  const editTenis = () => {
+    Axios.put("http://localhost:3001/updateTenis", {
+      id: props.id,
       name: editValues.name,
-      cost: editValues.cost,
-      category: editValues.category,
-    }).then(() => {
-      props.setListCard(
-        props.listCard.map((value) => {
-          return value.id == editValues.id
-            ? {
-                id: editValues.id,
-                name: editValues.name,
-                cost: editValues.cost,
-                category: editValues.category,
-              }
-            : value;
-        })
-      );
+      preco: editValues.cost,
+      cor: editValues.color,
+      tamanho: editValues.size,
+      user_id: props.user_id,
+    }).then((response) => {
+      if (response.data.auth) {
+        handleClose();
+        window.location.reload();
+      } else {
+        alert("Falha na edição");
+      }
     });
     handleClose();
   };
 
-  const handleDeleteGame = () => {
-    Axios.delete(`http://localhost:3001/delete/${editValues.id}`).then(() => {
-      props.setListCard(
-        props.listCard.filter((value) => {
-          return value.id != editValues.id;
-        })
-      );
+  const deleteTenis = () => {
+    Axios.delete(`http://localhost:3001/deleteTenis/${props.id}/${props.user_id}`).then((response) => {
+      if (response.data.auth) {
+        handleClose();
+        window.location.reload();
+      } else {
+        alert("Falha na exclusão");
+      }
     });
     handleClose();
   };
@@ -68,29 +82,22 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Editar</DialogTitle>
+        {props.mode == 0 ? (
+          <DialogTitle id="form-dialog-title">Adicionar Tênis</DialogTitle>
+        ) : (
+          <DialogTitle id="form-dialog-title">Editar Tênis</DialogTitle>)}
         <DialogContent>
-          <TextField
-            disabled
-            margin="dense"
-            id="id"
-            label="id"
-            defaultValue={props.id}
-            type="text"
-            fullWidth
-          />
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Nome do jogo"
+            label="Nome do tênis"
             defaultValue={props.title}
             type="text"
             onChange={handleChangeValues}
             fullWidth
           />
           <TextField
-            autoFocus
             margin="dense"
             id="cost"
             label="preço"
@@ -100,24 +107,39 @@ export default function FormDialog(props) {
             fullWidth
           />
           <TextField
-            autoFocus
             margin="dense"
-            id="category"
-            label="Categoria"
-            defaultValue={props.category}
+            id="color"
+            label="Cor"
+            defaultValue={props.color}
             type="text"
+            onChange={handleChangeValues}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
+            id="size"
+            label="Tamanho"
+            defaultValue={props.size}
+            type="number"
             onChange={handleChangeValues}
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
-          <Button color="primary" onClick={() => handleDeleteGame()}>
-            Excluir
-          </Button>
-          <Button color="primary" onClick={() => handleEditGame()}>
+          {props.mode == 0 ? (<></>) :
+          (<Button color="primary" onClick={() => deleteTenis()}>
+          Excluir
+        </Button>)}
+          <Button color="primary" onClick={() => {
+              if(props.mode == 0){
+                addTenis();
+              }else{
+                editTenis();
+              }
+          }}>
             Salvar
           </Button>
         </DialogActions>
