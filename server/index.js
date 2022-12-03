@@ -243,15 +243,7 @@ app.put("/updateTenis", (req, res) => {
   const { tamanho } = req.body;
   const { cor } = req.body;
   const { preco } = req.body;
-  console.log("chamou");
-  console.log(id);
-  console.log(user_id);
-  console.log(name);
-  console.log(tamanho);
-  console.log(cor);
-  console.log(preco);
   
-
   let mysql = "UPDATE tenis SET name = ?, size = ?, color = ?, price = ? WHERE tenis_id = ? AND user_id = ?";
   db.query(mysql, [name, tamanho, cor, preco, id, user_id], (err, result) => {
     if (err) {

@@ -60,6 +60,10 @@ export class DialogComponent implements OnInit {
 
   salvar() {
     if (this.dialogName == "Adicionar") {
+      if (this.nome == null || this.nome == "" || this.preco == null || this.tamanho == null || this.cor == null || this.cor == "") {
+        alert("Preencha todos os campos");
+        return;
+      }
       this.tenisService.create(new TenisDTO(this.nome, this.tamanho, this.cor, this.preco, this.user_id)).subscribe((response: ResponseDTO) => {
         if (response.auth) {
           this.dialogRef.close();
@@ -68,7 +72,10 @@ export class DialogComponent implements OnInit {
         }
       });
     } else {
-      console.log(this.tenis_id);
+      if (this.nome == null || this.nome == "" || this.preco == null || this.tamanho == null || this.cor == null || this.cor == "") {
+        alert("Preencha todos os campos");
+        return;
+      }
       this.tenisService.update(new TenisDTO(this.nome, this.tamanho, this.cor, this.preco, this.user_id, this.tenis_id)).subscribe((response: ResponseDTO) => {
         if (response.auth) {
           this.dialogRef.close();

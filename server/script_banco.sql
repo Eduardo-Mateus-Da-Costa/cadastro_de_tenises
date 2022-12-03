@@ -18,3 +18,4 @@ CREATE TABLE tenises.tenis (
 	CONSTRAINT tenis_pk PRIMARY KEY (tenis_id),
 	CONSTRAINT tenis_FK FOREIGN KEY (user_id) REFERENCES tenises.`user`(user_id) ON DELETE CASCADE
 );
+
