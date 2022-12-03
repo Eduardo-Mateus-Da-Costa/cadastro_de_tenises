@@ -1,0 +1,37 @@
+<div class="geral">
+  <div class="form">
+    <h1>{{dialogName}}</h1>
+    <input
+      [(ngModel)]="nome"
+      type="text"
+      name="name"
+      placeholder="Nome"
+      class="register-input"
+    />
+    <input
+      [(ngModel)]="tamanho"
+      type="number"
+      name="size"
+      placeholder="Tamanho"
+      class="register-input"
+    />
+    <input
+      [(ngModel)]="cor"
+      type="text"
+      name="color"
+      placeholder="Cor"
+      class="register-input"
+    />
+    <input
+      [(ngModel)]="preco"
+      type="number"
+      name="price"
+      placeholder="Preço"
+      class="register-input"
+    />
+    <button (click)="salvar()">Salvar</button>
+    <button *ngIf="delete" (click)="deletar()">Deletar</button>
+    <button (click)="fechar()">Cancelar</button>
+  </div>
+</div>
+

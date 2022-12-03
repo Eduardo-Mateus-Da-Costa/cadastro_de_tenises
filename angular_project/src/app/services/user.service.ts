@@ -12,10 +12,10 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   register(user: UserDTO){
-    return this.httpClient.post<void>(`${environment.urlApi}/sign-up`, user);
+    return this.httpClient.post<ResponseDTO>(`${environment.urlApi}/sign-up`, user);
   }
 
-  login(){
-    return this.httpClient.get<ResponseDTO>(`${environment.urlApi}/login`);
+  login(data: UserDTO){
+    return this.httpClient.patch<ResponseDTO>(`${environment.urlApi}/login`, data);
   }
 }

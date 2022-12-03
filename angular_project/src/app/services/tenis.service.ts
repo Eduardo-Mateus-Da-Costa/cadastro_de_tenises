@@ -8,7 +8,6 @@ import { TenisDTO } from '../model/tenis.dto';
 @Injectable({
   providedIn: 'root'
 })
-
 export class TenisService {
 
     constructor(private httpClient: HttpClient) { }

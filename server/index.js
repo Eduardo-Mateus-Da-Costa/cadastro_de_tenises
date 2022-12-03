@@ -22,7 +22,7 @@ app.post("/sign-up", (req, res) => {
   db.query(mysql, [name, email, password], (err, result) => {
     if (err || result.affectedRows === 0 || result == null || result.insertId == null) {
       console.log(err);
-      res.send(err);
+      res.send({result: err});
     }else{
       res.send({ result, auth: true, id: result.insertId });
     }
@@ -61,7 +61,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), preco, likeText(cor), tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -72,7 +72,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, preco], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -83,7 +83,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(cor)], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -94,7 +94,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -105,7 +105,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name)], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -117,7 +117,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(cor), preco], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -128,7 +128,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, preco, tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -139,7 +139,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(cor), tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -150,7 +150,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), preco], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -161,7 +161,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), likeText(cor)], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -172,7 +172,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -183,7 +183,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(cor), preco, tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -194,7 +194,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), likeText(cor), preco], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -205,7 +205,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), preco, tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -216,7 +216,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), likeText(cor), tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -227,7 +227,7 @@ app.patch("/search", (req, res) => {
     db.query(mysql, [id, likeText(name), likeText(cor), preco, tamanho], (err, result) => {
       if (err){
         console.log(err);
-        res.send(err);
+        res.send({result: err});
       }
       else{
         res.send({ result, auth: true });
@@ -243,13 +243,20 @@ app.put("/updateTenis", (req, res) => {
   const { tamanho } = req.body;
   const { cor } = req.body;
   const { preco } = req.body;
-
+  console.log("chamou");
+  console.log(id);
+  console.log(user_id);
+  console.log(name);
+  console.log(tamanho);
+  console.log(cor);
+  console.log(preco);
+  
 
   let mysql = "UPDATE tenis SET name = ?, size = ?, color = ?, price = ? WHERE tenis_id = ? AND user_id = ?";
   db.query(mysql, [name, tamanho, cor, preco, id, user_id], (err, result) => {
     if (err) {
       console.log(err);
-      res.send(err);
+      res.send({result: err});
     } else {
       res.send({ result, auth: true });
     }
@@ -267,6 +274,7 @@ app.post("/createTenis", (req, res) => {
   db.query(mysql, [name, tamanho, cor, preco, user_id], (err, result) => {
     if (err) {
       console.log(err);
+      res.send({result: err});
     } else {
       res.send({result, auth: true});
     }
@@ -280,7 +288,7 @@ app.delete("/deleteTenis/:id/:user_id", (req, res) => {
   db.query(mysql, [id, user_id], (err, result) => {
     if (err) {
       console.log(err);
-      res.send(err);
+      res.send({result: err});
     } else {
       res.send({result, auth: true});
     }
@@ -296,7 +304,7 @@ app.patch("/login", (req, res) => {
   db.query(mysql, [email, password], (err, result) => {
     if (err || result.length === 0) {
       console.log(err);
-      res.send(err);
+      res.send({result: err});
     }else{
       res.send({ result, auth: true, id: result[0].user_id });
     } 

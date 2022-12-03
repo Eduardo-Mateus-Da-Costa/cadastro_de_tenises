@@ -1,0 +1,47 @@
+<div>
+  <div class="header">
+      <h1 class="title">Tenises, organize seus tênis</h1>
+      <button>Sair</button>
+  </div>
+  <div class="divider"></div>
+  <section class='search'>
+      <h1>Busca</h1>
+      <input
+          [(ngModel)]="nome"
+          type="text"
+          name="name"
+          placeholder="Nome"
+          class="register-input"
+      />
+      <input
+          [(ngModel)]="tamanho"
+          type="number"
+          name="size"
+          placeholder="Tamanho"
+          class="register-input"
+      />
+      <input
+          [(ngModel)]="cor"
+          type="text"
+          name="color"
+          placeholder="Cor"
+          class="register-input"
+      />
+      <input
+          [(ngModel)]="preco"
+          type="number"
+          name="price"
+          placeholder="Preço máximo"
+          class="register-input"
+      />
+      <button (click)="search()">Buscar</button>
+      <button (click)="adicionar()">Adicionar</button>
+  </section>
+  <div class='divider'></div>
+  <section>
+      <h1>Seus Tênis</h1>
+      <div class="tenisTable">
+        <app-card *ngFor="let tenis of tenises" [tenis]="tenis" (onEdit)="editar($event)"></app-card>
+      </div>
+  </section>
+</div>
